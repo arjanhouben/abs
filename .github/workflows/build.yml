@@ -8,8 +8,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: bootstrap abs and run
       - run: |
-        mkdir build
-        cd build
-        g++ ../abs.cpp --std=c++20 -o abs
-        ./abs
-        ./abs clean
+          mkdir build
+          cd build
+          g++ ../abs.cpp --std=c++20 -o abs
+          ./abs
+          ./abs clean
