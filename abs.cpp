@@ -472,7 +472,7 @@ int configure( std::span< char* > args )
 	try
 	{
 		add_executable Makefile{
-			name{ std::filesystem::path{ args[ 0 ] }.filename() },
+			name{ std::filesystem::path{ args[ 0 ] }.filename().string() },
 			source{ __FILE__ }
 		};
 
