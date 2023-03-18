@@ -1,0 +1,13 @@
+name: build
+run-name: ${{ github.actor }} is building ABS
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: mkdir build
+      - run: cd build
+      - run: g++ ../abs.cpp --std=c++20 -o abs
+      - run: ./abs
+      - run: ./abs clean
