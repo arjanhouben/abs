@@ -2,8 +2,22 @@ name: build
 run-name: ${{ github.actor }} is building ABS
 on: [push]
 jobs:
-  check-bats-version:
+  compile_and_run_abs_on_ubuntu:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: bootstrap abs and run
+        run: |
+          apt install g++-10 -y --no-install-recommends
+          ln -s /usr/bin/g++-10 /usr/bin/g++
+          mkdir build
+          cd build
+          g++ ../abs.cpp --std=c++20 -o abs
+          ./abs
+          ./abs clean
+jobs:
+  compile_and_run_abs_on_macos:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: bootstrap abs and run
@@ -11,5 +25,17 @@ jobs:
           mkdir build
           cd build
           g++ ../abs.cpp --std=c++20 -o abs
+          ./abs
+          ./abs clean
+jobs:
+  compile_and_run_abs_on_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: bootstrap abs and run
+        run: |
+          mkdir build
+          cd build
+          cl ../abs.cpp /o abs
           ./abs
           ./abs clean

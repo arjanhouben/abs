@@ -12,14 +12,14 @@
 #include <set>
 #include <fstream>
 
-struct std_98 {};
-struct std_20 {};
-
 template < typename T >
 struct target_compile_feature {};
 
 struct cpp
 {
+	struct std_98 {};
+	struct std_20 {};
+
 	static constexpr target_compile_feature< std_98 > std_98 = {};
 	static constexpr target_compile_feature< std_20 > std_20 = {};
 };
@@ -157,13 +157,7 @@ struct exclude_from_all
 };
 
 const std::filesystem::path current_source_dir{ std::filesystem::absolute( __FILE__ ).parent_path().lexically_normal() };
-const std::filesystem::path current_binary_dir{ std::filesystem::absolute( "" ).lexically_normal() };
-
-template < typename T >
-void handle_target_argument( target&, T )
-{
-	static_assert( sizeof( T ) == 0, "please add an override for this type" );
-}
+const std::filesystem::path current_binary_dir{ std::filesystem::absolute( "." ).lexically_normal() };
 
 void handle_target_argument( target &target, const name &name )
 {
@@ -373,9 +367,7 @@ generated_file execute( Args &&...args )
 	// TODO replace this section
 	stream.commandline += " > /tmp/test.txt";
 	std::system( stream.commandline.c_str() );
-	std::flush( std::cout );
-	auto buf = ( std::stringstream{} << std::ifstream( "/tmp/test.txt" ).rdbuf() ).str();
-	std::cout << buf;
+	std::cout << std::ifstream( "/tmp/test.txt" ).rdbuf();
 	return generated_file::has_been_updated;
 }
 
