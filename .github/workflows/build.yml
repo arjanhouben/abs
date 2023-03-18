@@ -15,7 +15,6 @@ jobs:
           g++ ../abs.cpp --std=c++20 -o abs
           ./abs
           ./abs clean
-jobs:
   compile_and_run_abs_on_macos:
     runs-on: macos-latest
     steps:
@@ -27,7 +26,6 @@ jobs:
           g++ ../abs.cpp --std=c++20 -o abs
           ./abs
           ./abs clean
-jobs:
   compile_and_run_abs_on_windows:
     runs-on: windows-latest
     steps:
